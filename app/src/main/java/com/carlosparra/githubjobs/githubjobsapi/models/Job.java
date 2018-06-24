@@ -5,7 +5,7 @@ import java.util.Date;
 public class Job {
 
     private String id;
-    private Date createdDate;
+    private String createdDate;
     private String title;
     private String location;
     private String description;
@@ -13,7 +13,7 @@ public class Job {
     private Company company;
     private String url;
 
-    public Job(String id, Date createdDate, String title, String location,
+    public Job(String id, String createdDate, String title, String location,
                String description, String howToApply, Company company, String url) {
         this.id = id;
         this.createdDate = createdDate;
@@ -33,11 +33,11 @@ public class Job {
         this.id = id;
     }
 
-    public Date getCreatedDate() {
+    public String getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(Date createdDate) {
+    public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
     }
 
