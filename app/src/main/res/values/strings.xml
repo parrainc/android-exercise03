@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GitHub Jobs API</string>
+    <string name="job_list_date_content_description_image_view">Location</string>
+    <string name="job_list_published_date_text_view">Published at</string>
+    <string name="job_list_job_location_text_view">Job Location</string>
+    <string name="job_list_published_date_content_description_image_view">Published date</string>
+    <string name="job_list_job_title_text_view">Job Title</string>
+    <string name="job_list_company_logo_content_description_image_view">Logo Image</string>
 </resources>
