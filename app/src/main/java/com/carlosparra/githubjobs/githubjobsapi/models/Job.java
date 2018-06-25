@@ -1,27 +1,36 @@
 package com.carlosparra.githubjobs.githubjobsapi.models;
 
-import java.util.Date;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.SerializedName;
 
 public class Job {
 
+    @SerializedName("id")
     private String id;
+    @SerializedName("created_at")
     private String createdDate;
+    @SerializedName("title")
     private String title;
+    @SerializedName("location")
     private String location;
+    @SerializedName("description")
     private String description;
+    @SerializedName("how_to_apply")
     private String howToApply;
-    private Company company;
+    private Company x_company;
+    @SerializedName("url")
     private String url;
 
     public Job(String id, String createdDate, String title, String location,
-               String description, String howToApply, Company company, String url) {
+               String description, String howToApply, String url) {
         this.id = id;
         this.createdDate = createdDate;
         this.title = title;
         this.location = location;
         this.description = description;
         this.howToApply = howToApply;
-        this.company = company;
+        //this.x_company = x_company;
         this.url = url;
     }
 
@@ -73,12 +82,12 @@ public class Job {
         this.howToApply = howToApply;
     }
 
-    public Company getCompany() {
-        return company;
+    public Company getX_company() {
+        return x_company;
     }
 
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setX_company(Company x_company) {
+        this.x_company = x_company;
     }
 
     public String getUrl() {
@@ -87,5 +96,10 @@ public class Job {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public static Company parseJSON(String response) {
+        Gson gson = new GsonBuilder().create();
+        return gson.fromJson(response, Company.class);
     }
 }
