@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private JobCustomAdapter adapter;
+    private List<Job> jobsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,14 +47,20 @@ public class MainActivity extends AppCompatActivity {
         jobCall.enqueue(new Callback<List<Job>>() {
             @Override
             public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                //Log.d("SERVICE CALL", response.body().toString());
-                Toast.makeText(MainActivity.this, "onResponse Successful",
+                Log.d("SERVICE CALL", String.valueOf(response.code()));
+
+                Toast.makeText(MainActivity.this,
+                        "onResponse Successful: " + String.valueOf(response.code()),
                         Toast.LENGTH_SHORT).show();
+
+                jobsList = response.body();
+                adapter.updateDataSet(jobsList);
             }
 
             @Override
             public void onFailure(Call<List<Job>> call, Throwable t) {
                 Log.e("ONFAILURE CALL", t.getMessage());
+
                 Toast.makeText(MainActivity.this, t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }

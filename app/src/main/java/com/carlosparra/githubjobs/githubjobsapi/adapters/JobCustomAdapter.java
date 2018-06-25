@@ -48,6 +48,10 @@ public class JobCustomAdapter extends
         this.clickListener = listener;
     }
 
+    public void updateDataSet(List<Job> jobs) {
+        this.jobList = jobs;
+        notifyDataSetChanged();
+    }
 
     class JobCustomAdapterViewHolder extends RecyclerView.ViewHolder{
 
@@ -82,9 +86,9 @@ public class JobCustomAdapter extends
             textViewJobLocation.setText(job.getLocation());
             textViewJobPublishedDate.setText(job.getCreatedDate());
 
-            if (job.getCompany().getLogo() == null) {
-                //imageViewCompanyLogo.setImageResource(R.);
-            }
+//            if (job.getX_company().getLogo() == null) {
+//                //imageViewCompanyLogo.setImageResource(R.);
+//            }
         }
     }
 
