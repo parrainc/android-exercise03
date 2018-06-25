@@ -10,10 +10,10 @@ import retrofit2.http.Query;
 
 public interface GitHubJobsService {
 
-    @GET("/")
+    @GET("positions.json")
     Call<List<Job>> getJobs(@Query("description") String description);
 
-    @GET("/")
+    @GET("positions.json")
     Call<List<Job>> getJobs(@Query("description") String description,
                             @Query("location") String location);
 }
