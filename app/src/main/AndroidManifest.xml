@@ -3,6 +3,7 @@
     package="com.carlosparra.githubjobs.githubjobsapi">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -18,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.JobDetailsActivity"></activity>
+        <activity
+            android:name=".activities.JobDetailsActivity"
+            android:parentActivityName=".activities.MainActivity" />
     </application>
 
 </manifest>

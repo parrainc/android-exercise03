@@ -1,6 +1,9 @@
 package com.carlosparra.githubjobs.githubjobsapi.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -56,7 +59,13 @@ public class MainActivity extends AppCompatActivity {
         });
         recyclerView.setAdapter(adapter);
 
-        getContentFromService();
+        if (isNetworkAvailable()) {
+            getContentFromService();
+        } else {
+            displayMessage("You must be connected to the internet", Toast.LENGTH_LONG);
+            toggleLoaderIndicator(false);
+        }
+
     }
 
     private void getContentFromService() {
@@ -70,10 +79,8 @@ public class MainActivity extends AppCompatActivity {
 
                 toggleLoaderIndicator(false);
 
-                Toast.makeText(MainActivity.this,
-                        "Service returned: " + response.body().size() + " jobs. With status " +
-                                String.valueOf(response.code()),
-                        Toast.LENGTH_SHORT).show();
+                displayMessage("Service returned: " + response.body().size() +
+                        " jobs. With status " + String.valueOf(response.code()), Toast.LENGTH_SHORT);
 
                 jobsList = response.body();
                 adapter.updateDataSet(jobsList);
@@ -85,8 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                 toggleLoaderIndicator(false);
 
-                Toast.makeText(MainActivity.this, t.getMessage(),
-                        Toast.LENGTH_LONG).show();
+                displayMessage(t.getMessage(), Toast.LENGTH_SHORT);
             }
         });
 
@@ -107,5 +113,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, JobDetailsActivity.class);
         intent.putExtra("JOB", job);
         startActivity(intent);
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        NetworkInfo networkInfo = connectivityManager != null ?
+                connectivityManager.getActiveNetworkInfo() : null;
+
+        return (networkInfo != null && networkInfo.isConnectedOrConnecting());
+    }
+
+    private void displayMessage(String message, int duration) {
+        Toast.makeText(this, message, duration).show();
     }
 }
