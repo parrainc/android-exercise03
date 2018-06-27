@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.carlosparra.githubjobs.githubjobsapi.R;
 import com.carlosparra.githubjobs.githubjobsapi.models.Job;
 
@@ -86,9 +88,11 @@ public class JobCustomAdapter extends
             textViewJobLocation.setText(job.getLocation());
             textViewJobPublishedDate.setText(job.getCreatedDate());
 
-//            if (job.getX_company().getLogo() == null) {
-//                //imageViewCompanyLogo.setImageResource(R.);
-//            }
+            Glide.with(context)
+                    .load(job.getCompany().getLogo())
+                    .apply(new RequestOptions()
+                            .placeholder(R.mipmap.image_no_available))
+                    .into(imageViewCompanyLogo);
         }
     }
 

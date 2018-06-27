@@ -21,7 +21,7 @@ public class JobDetailsActivity extends AppCompatActivity {
         Job job = getIntent().getExtras().getParcelable("JOB");
 
         if (job != null) {
-            jobTitle.setText(job.getTitle());
+            jobTitle.setText(job.getCompany().getName());
         }
     }
 }
