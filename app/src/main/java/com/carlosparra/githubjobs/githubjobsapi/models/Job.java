@@ -118,11 +118,11 @@ public class Job implements Parcelable {
         this.howToApply = howToApply;
     }
 
-    public Company get_company() {
+    public Company getCompany() {
         return company;
     }
 
-    public void set_company(Company company) {
+    public void setCompany(Company company) {
         this.company = company;
     }
 
