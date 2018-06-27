@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.carlosparra.githubjobs.githubjobsapi.R;
@@ -22,9 +25,14 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final static String TAG = MainActivity.class.getSimpleName();
+
     private RecyclerView recyclerView;
     private JobCustomAdapter adapter;
     private List<Job> jobsList;
+
+    private ProgressBar loadingIndicator;
+    private TextView loadingIndicatorText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +42,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewJobsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        getContentFromService();
+        loadingIndicator = findViewById(R.id.pb_loading_jobs);
+        loadingIndicatorText = findViewById(R.id.tv_loading_jobs);
+        toggleLoaderIndicator(true);
 
         adapter = new JobCustomAdapter(new ArrayList<Job>(), this);
         recyclerView.setAdapter(adapter);
+
+        getContentFromService();
     }
 
     private void getContentFromService() {
@@ -47,10 +59,13 @@ public class MainActivity extends AppCompatActivity {
         jobCall.enqueue(new Callback<List<Job>>() {
             @Override
             public void onResponse(Call<List<Job>> call, Response<List<Job>> response) {
-                Log.d("SERVICE CALL", String.valueOf(response.code()));
+                Log.d(TAG, String.valueOf(response.code()));
+
+                toggleLoaderIndicator(false);
 
                 Toast.makeText(MainActivity.this,
-                        "onResponse Successful: " + String.valueOf(response.code()),
+                        "Service returned: " + response.body().size() + " jobs. With status " +
+                                String.valueOf(response.code()),
                         Toast.LENGTH_SHORT).show();
 
                 jobsList = response.body();
@@ -59,12 +74,25 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Job>> call, Throwable t) {
-                Log.e("ONFAILURE CALL", t.getMessage());
+                Log.e(TAG, t.getMessage());
+
+                toggleLoaderIndicator(false);
 
                 Toast.makeText(MainActivity.this, t.getMessage(),
                         Toast.LENGTH_LONG).show();
             }
         });
 
+    }
+
+    private void toggleLoaderIndicator(boolean isDisplay) {
+        if (isDisplay) {
+            loadingIndicator.setVisibility(View.VISIBLE);
+            loadingIndicatorText.setVisibility(View.VISIBLE);
+        }
+        else {
+            loadingIndicator.setVisibility(View.INVISIBLE);
+            loadingIndicatorText.setVisibility(View.INVISIBLE);
+        }
     }
 }
