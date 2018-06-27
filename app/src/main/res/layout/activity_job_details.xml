@@ -6,4 +6,9 @@
     android:layout_height="match_parent"
     tools:context=".activities.JobDetailsActivity">
 
+    <TextView
+        android:id="@+id/tv_details_job_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
 </android.support.constraint.ConstraintLayout>

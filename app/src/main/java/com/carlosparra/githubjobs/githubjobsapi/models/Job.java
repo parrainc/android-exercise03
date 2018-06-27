@@ -1,10 +1,13 @@
 package com.carlosparra.githubjobs.githubjobsapi.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.SerializedName;
 
-public class Job {
+public class Job implements Parcelable {
 
     @SerializedName("id")
     private String id;
@@ -32,6 +35,44 @@ public class Job {
         this.howToApply = howToApply;
         //this.x_company = x_company;
         this.url = url;
+    }
+
+    protected Job(Parcel in) {
+        id = in.readString();
+        createdDate = in.readString();
+        title = in.readString();
+        location = in.readString();
+        description = in.readString();
+        howToApply = in.readString();
+        url = in.readString();
+    }
+
+    public static final Creator<Job> CREATOR = new Creator<Job>() {
+        @Override
+        public Job createFromParcel(Parcel in) {
+            return new Job(in);
+        }
+
+        @Override
+        public Job[] newArray(int size) {
+            return new Job[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(createdDate);
+        parcel.writeString(title);
+        parcel.writeString(location);
+        parcel.writeString(description);
+        parcel.writeString(howToApply);
+        parcel.writeString(url);
     }
 
     public String getId() {

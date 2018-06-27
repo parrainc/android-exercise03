@@ -1,5 +1,6 @@
 package com.carlosparra.githubjobs.githubjobsapi.activities;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
         toggleLoaderIndicator(true);
 
         adapter = new JobCustomAdapter(new ArrayList<Job>(), this);
+        adapter.setOnItemClickListener(new JobCustomAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                startActivity(jobsList.get(position));
+            }
+        });
         recyclerView.setAdapter(adapter);
 
         getContentFromService();
@@ -94,5 +101,11 @@ public class MainActivity extends AppCompatActivity {
             loadingIndicator.setVisibility(View.INVISIBLE);
             loadingIndicatorText.setVisibility(View.INVISIBLE);
         }
+    }
+
+    private void startActivity(Job job) {
+        Intent intent = new Intent(this, JobDetailsActivity.class);
+        intent.putExtra("JOB", job);
+        startActivity(intent);
     }
 }
