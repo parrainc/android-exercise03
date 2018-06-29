@@ -1,6 +1,9 @@
 package com.carlosparra.githubjobs.githubjobsapi.activities;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -10,9 +13,11 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +38,7 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String DEFAULT_SEARCH_CRITERIA = "Android";
 
     private RecyclerView recyclerView;
     private JobCustomAdapter adapter;
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         if (isNetworkAvailable()) {
-            getContentFromService();
+            getContentFromService(DEFAULT_SEARCH_CRITERIA);
         } else {
             displayMessage("You must be connected to the internet", Toast.LENGTH_LONG);
             toggleLoaderIndicator(false);
@@ -86,16 +92,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         if (itemId == R.id.menu_search) {
-            
-            Toast.makeText(this, "Search menu option was selected", Toast.LENGTH_SHORT).show();
+            displaySearchDialog();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void getContentFromService() {
+    private void getContentFromService(String searchCriteria) {
         GitHubJobsService service = API.getService().create(GitHubJobsService.class);
-        Call<List<Job>> jobCall = service.getJobs("Android");
+        Call<List<Job>> jobCall = service.getJobs(searchCriteria);
 
         jobCall.enqueue(new Callback<List<Job>>() {
             @Override
@@ -104,8 +109,14 @@ public class MainActivity extends AppCompatActivity {
 
                 toggleLoaderIndicator(false);
 
-                displayMessage("Service returned: " + response.body().size() +
-                        " jobs. With status " + String.valueOf(response.code()), Toast.LENGTH_SHORT);
+                if (response.body().size() <= 0) {
+                    loadingIndicatorText.setVisibility(View.VISIBLE);
+                    loadingIndicatorText.setText(R.string.no_jobs_found);
+                    return;
+                }
+
+                displayMessage(getString(R.string.jobs_found_response, response.body().size(),
+                        response.code()), Toast.LENGTH_SHORT);
 
                 jobsList = response.body();
                 adapter.updateDataSet(jobsList);
@@ -125,10 +136,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void toggleLoaderIndicator(boolean isDisplay) {
         if (isDisplay) {
+            recyclerView.setVisibility(View.INVISIBLE);
             loadingIndicator.setVisibility(View.VISIBLE);
             loadingIndicatorText.setVisibility(View.VISIBLE);
         }
         else {
+            recyclerView.setVisibility(View.VISIBLE);
             loadingIndicator.setVisibility(View.INVISIBLE);
             loadingIndicatorText.setVisibility(View.INVISIBLE);
         }
@@ -152,5 +165,31 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayMessage(String message, int duration) {
         Toast.makeText(this, message, duration).show();
+    }
+
+    private void displaySearchDialog() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        View inflater = getLayoutInflater().inflate(R.layout.dialog_search, null);
+        final EditText searchCriteria = inflater.findViewById(R.id.et_search_criteria);
+
+        builder.setView(inflater)
+                .setTitle(R.string.search_dialog_title)
+                .setPositiveButton(R.string.search_dialog_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (!searchCriteria.getText().toString().isEmpty()) {
+                            toggleLoaderIndicator(true);
+                            getContentFromService(searchCriteria.getText().toString());
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.search_dialog_negative, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        builder.create().show();
     }
 }

@@ -6,4 +6,10 @@
     <string name="main_loading_indicator_text">Loading jobs…</string>
     <string name="job_details_apply_button">Apply now!</string>
     <string name="menu_main_search">Search</string>
+    <string name="search_dialog_hint">Android</string>
+    <string name="search_dialog_title">Search</string>
+    <string name="search_dialog_positive">SEARCH</string>
+    <string name="search_dialog_negative">CANCEL</string>
+    <string name="no_jobs_found">No jobs found that matched with the specified criteria</string>
+    <string name="jobs_found_response">Service returned: %d%0 jobs. With status %d%1</string>
 </resources>

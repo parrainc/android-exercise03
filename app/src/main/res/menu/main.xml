@@ -5,6 +5,5 @@
         android:id="@+id/menu_search"
         android:title="@string/menu_main_search"
         app:showAsAction="ifRoom"
-        android:icon="@mipmap/ic_search"
-        android:iconTint="@color/colorWhite"/>
+        android:icon="@mipmap/ic_search" />
 </menu>
