@@ -39,7 +39,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        android:contentDescription="@string/job_list_published_date_content_description_image_view"
+        android:contentDescription="@string/job_published_date_content_description"
         android:src="@mipmap/ic_location"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintStart_toEndOf="@+id/iv_company_logo"
