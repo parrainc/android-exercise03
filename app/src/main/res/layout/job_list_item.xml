@@ -51,15 +51,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        tools:text="Job Location"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_location"
-        app:layout_constraintTop_toBottomOf="@+id/tv_job_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_job_title"
+        tools:text="Job Location" />
 
     <ImageView
         android:id="@+id/iv_date"
@@ -80,15 +79,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
-        tools:text="Published date"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_date"
-        app:layout_constraintTop_toBottomOf="@+id/tv_job_title" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_job_title"
+        tools:text="Published date" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"

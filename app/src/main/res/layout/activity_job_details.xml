@@ -45,53 +45,65 @@
             android:id="@+id/imageView"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="32dp"
             android:contentDescription="@string/job_location_content_description"
             android:src="@mipmap/ic_location"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title"
+            app:layout_constraintVertical_bias="0.13" />
 
         <TextView
             android:id="@+id/tv_details_job_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="40dp"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toStartOf="@+id/guideline3"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title"
+            app:layout_constraintVertical_bias="0.100000024"
             tools:text="Location Sample" />
 
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginTop="32dp"
             android:contentDescription="@string/job_published_date_content_description"
             android:src="@mipmap/ic_date"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintStart_toStartOf="@+id/guideline3"
-            app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title"
+            app:layout_constraintVertical_bias="0.120000005" />
 
         <TextView
             android:id="@+id/tv_details_published_date"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="40dp"
             android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toBottomOf="@+id/tv_details_job_title"
+            app:layout_constraintVertical_bias="0.100000024"
             tools:text="Published Date" />
 
         <TextView
             android:id="@+id/tv_details_job_description"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
@@ -122,7 +134,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="192dp" />
+            app:layout_constraintGuide_begin="218dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline4"

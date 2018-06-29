@@ -8,6 +8,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class JobDeserializer implements JsonDeserializer<Job> {
     @Override
@@ -32,6 +35,14 @@ public class JobDeserializer implements JsonDeserializer<Job> {
             companyLogo = json.getAsJsonObject().get("company_logo").getAsString();
 
         Company company = new Company(companyName, companyLogo, companyUrl);
+
+        SimpleDateFormat df = new SimpleDateFormat("E MMM dd hh:mm:ss z yyyy");
+        try {
+            Date date = df.parse(createdDate);
+            createdDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         return new Job(id, createdDate, title, location, description, howToApply, url, company);
     }
