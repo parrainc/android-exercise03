@@ -42,6 +42,7 @@ public class JobDetailsActivity extends AppCompatActivity {
                             .placeholder(R.mipmap.image_no_available))
                     .into(jobCompanyLogo);
 
+            setTitle(job.getTitle());
             jobTitle.setText(job.getTitle());
             jobLocation.setText(job.getLocation());
             jobPublishedDate.setText(job.getCreatedDate());

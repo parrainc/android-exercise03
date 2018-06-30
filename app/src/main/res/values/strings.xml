@@ -6,7 +6,7 @@
     <string name="main_loading_indicator_text">Loading jobs…</string>
     <string name="job_details_apply_button">Apply now!</string>
     <string name="menu_main_search">Search</string>
-    <string name="search_dialog_hint">Android</string>
+    <string name="search_dialog_hint">Search</string>
     <string name="search_dialog_title">Search</string>
     <string name="search_dialog_positive">Search</string>
     <string name="search_dialog_negative">Cancel</string>
