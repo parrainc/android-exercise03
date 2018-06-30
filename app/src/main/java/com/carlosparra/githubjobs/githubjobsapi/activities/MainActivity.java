@@ -1,7 +1,6 @@
 package com.carlosparra.githubjobs.githubjobsapi.activities;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         if (isNetworkAvailable()) {
             getContentFromService(DEFAULT_SEARCH_CRITERIA);
         } else {
-            displayMessage("You must be connected to the internet", Toast.LENGTH_LONG);
+            displayMessage(getString(R.string.no_network_available_error), Toast.LENGTH_LONG);
             toggleLoaderIndicator(false);
         }
 
@@ -110,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 toggleLoaderIndicator(false);
 
                 if (response.body().size() <= 0) {
-                    loadingIndicatorText.setVisibility(View.VISIBLE);
-                    loadingIndicatorText.setText(R.string.no_jobs_found);
+                    displayMessage(getString(R.string.no_jobs_found), Toast.LENGTH_LONG);
                     return;
                 }
 

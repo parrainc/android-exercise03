@@ -1,5 +1,8 @@
 package com.carlosparra.githubjobs.githubjobsapi.services.deserializers;
 
+import android.os.Build;
+import android.text.Html;
+
 import com.carlosparra.githubjobs.githubjobsapi.models.Company;
 import com.carlosparra.githubjobs.githubjobsapi.models.Job;
 import com.google.gson.JsonDeserializationContext;
@@ -42,6 +45,12 @@ public class JobDeserializer implements JsonDeserializer<Job> {
             createdDate = new SimpleDateFormat("dd/MM/yyyy").format(date);
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            description = String.valueOf(Html.fromHtml(description, Html.FROM_HTML_MODE_LEGACY));
+        }else {
+            description = String.valueOf(Html.fromHtml(description));
         }
 
         return new Job(id, createdDate, title, location, description, howToApply, url, company);

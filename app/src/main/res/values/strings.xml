@@ -1,15 +1,16 @@
 <resources>
     <string name="app_name">GitHub Jobs API</string>
     <string name="job_location_content_description">Location</string>
-    <string name="job_published_date_content_description">Published at</string>
+    <string name="job_published_date_content_description">Published</string>
     <string name="job_company_logo_content_description">Logo Image</string>
     <string name="main_loading_indicator_text">Loading jobs…</string>
     <string name="job_details_apply_button">Apply now!</string>
     <string name="menu_main_search">Search</string>
     <string name="search_dialog_hint">Android</string>
     <string name="search_dialog_title">Search</string>
-    <string name="search_dialog_positive">SEARCH</string>
-    <string name="search_dialog_negative">CANCEL</string>
+    <string name="search_dialog_positive">Search</string>
+    <string name="search_dialog_negative">Cancel</string>
     <string name="no_jobs_found">No jobs found that matched with the specified criteria</string>
-    <string name="jobs_found_response">Service returned: %d%0 jobs. With status %d%1</string>
+    <string name="jobs_found_response">Service returned: %1$d jobs. With status %2$d</string>
+    <string name="no_network_available_error">You must be connected to the internet</string>
 </resources>
